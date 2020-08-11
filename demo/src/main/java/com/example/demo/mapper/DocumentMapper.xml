@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.DocumentMapper">
+
+    <sql id="table">Document</sql>
+
+    <!--查询所有-->
+    <select id="getAll" resultType="com.example.demo.bean.Document">
+        SELECT * FROM <include refid="table" />
+    </select>
+
+    <!--根据DocID查询-->
+    <select id="getDocById" parameterType="Integer" resultType="com.example.demo.bean.Document">
+        SELECT * FROM Document WHERE DocID = #{DocID}
+    </select>
+
+    <!--增-->
+    <insert id="newDoc" parameterType="com.example.demo.bean.Document">
+        INSERT INTO <include refid="table" />
+        (UserID,Title,DateTime,Content,Privilege,IsTeam,Team)
+        VALUES
+        (#{UserID},#{Title},#{DateTime},#{Content},#{Privilege},#{IsTeam},#{Team})
+    </insert>
+
+    <!--改-->
+    <update id="update" parameterType="com.example.demo.bean.Document">
+        UPDATE <include refid="table"/>
+        SET Title=#{Title},Content=#{Content},Privilege=#{Privilege}
+        WHERE DocID=#{DocID}
+    </update>
+
+    <!--删-->
+    <delete id="delete" parameterType="com.example.demo.bean.Document">
+        DELETE FROM <include refid="table" /> WHERE DocID = #{DocID}
+    </delete>
+
+</mapper>
